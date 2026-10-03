@@ -15,8 +15,9 @@ PATCHES_ROOT=$2
 PATCH_DIRS=(strongR-frida florida rycoh99)
 
 # https://github.com/zer0def/undetected-frida/blob/7f6cb0ed0ff1a9d446843c52525b254fa4b6ba0d/.github/workflows/build.yml#L130
-FRIDA_PREFIX=$(tr -cd 'a-z0-9' </dev/urandom | head -c32)
-SESSION_SERVICE=$(tr -cd 'a-f0-9' </dev/urandom | head -c32)
+# head closes the pipe after 32 bytes, so tr dies with SIGPIPE (141)
+FRIDA_PREFIX=$(tr -cd 'a-z0-9' </dev/urandom | head -c32) || true
+SESSION_SERVICE=$(tr -cd 'a-f0-9' </dev/urandom | head -c32) || true
 export FRIDA_PREFIX SESSION_SERVICE
 
 echo "FRIDA_PREFIX=$FRIDA_PREFIX"
