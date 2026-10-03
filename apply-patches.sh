@@ -29,7 +29,6 @@ for k in "${PATCH_DIRS[@]}"; do
 		name=$(basename "$moddir")
 		echo "Applying $k patches to subprojects/$name"
 		# shellcheck disable=SC2016
-		envsubst '$FRIDA_PREFIX $SESSION_SERVICE' <"$moddir"*.patch |
-			git -C "$FRIDA_ROOT/subprojects/$name" am
+		cat "$moddir"*.patch | envsubst '$FRIDA_PREFIX $SESSION_SERVICE' | git -C "$FRIDA_ROOT/subprojects/$name" am
 	done
 done
