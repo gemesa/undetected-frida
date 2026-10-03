@@ -32,3 +32,5 @@ for k in "${PATCH_DIRS[@]}"; do
 		cat "$moddir"*.patch | envsubst '$FRIDA_PREFIX $SESSION_SERVICE' | patch -d "$FRIDA_ROOT/subprojects/$name" -Np1
 	done
 done
+
+echo "Done. Now build, then run: python3 $FRIDA_ROOT/subprojects/frida-core/src/anti-anti-frida.py $FRIDA_ROOT/build/subprojects/frida-core/server/frida-server"
